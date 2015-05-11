@@ -1,0 +1,93 @@
+# Example: redirector rules
+
+# since jesred uses exactly the same pattern functions as squirm 1.0 betaB,
+# you can also find detailed information about this file on:
+# http://www.senet.com.au/squirm/#squirm_patterns
+
+#############################################################################
+# Since jesred uses a linear list of redirect rules, the order of the rules #
+# in this file is important!!!                                              #
+#############################################################################
+
+# TAG: abort string
+#
+# If jesred enconters the specified string at the end
+# of the passed URL, it immediately returns and echo's back a newline (i.e.
+# no rewrite) - so this speeds up the lookup process a lot!
+# such rules are referred as ABORT rules
+
+# rule 1 - 7
+abort	.html
+abort	.jpg
+abort	.html
+abort	.shtml
+abort	.java
+abort	.jar
+abort	.htm
+
+# TAG: regex RE [RURL [ACCEL]]
+# TAG: regexi RE [RURL [ACCEL]]
+#
+# ACCEL is honored only, if you compiled jesred with the switch -DUSE_ACCEL
+#
+# regex  ... indicates, that the following RE is case-sensitive
+# regexi ... indicates, that the following RE is case-insensitive
+# RE     ... is the regular expression, which has to match the passed URL to get
+#            rewritten with the following RURL (it is only limited by the
+#	     implementation of the used regex functions - so see the man page
+#            for the regex functions you compiled jesred with, to get detailed
+#            information on supported RE's)
+# RURL   ... if RE matches the passed URL, jesred returns RURL
+# ACCEL  ... a string, which
+#	     starts with a '^'	if the string after the '^' is NOT completely
+#				the same as the passed URL starts with
+#		OR		(except when case-insensitive) no egexc with
+#				RE and the passed URL (relative expensive) will
+#				be called, since the RE wouldn't match the
+#				pased URL - i.e. no match
+#	     ends with a '$'	if the passed URL does NOT end exactly with the
+#				string before the '$' (expcept case-insensitive)
+#		OR		, no egexc with with RE and the passed URL
+#				will be called - i.e. no match
+#            is plain text	if accelerator string does not occur in the URL,
+#				no regexc with RE and the passed URL will be
+#				called - i.e. no match
+#
+#------------------------------------------------------------------------------
+# If RURL and ACCEL are omitted, all URLs which match RE, are NOT rewritten.
+# So the following two rules prevent jesred from rewriting matched URLs, but
+# with the 2nd rule jesred does NOT need to store the RURL (thus consuming
+# less memory) and does NOT need to do all the pattern replacements (faster)...
+# 
+# 	regex ^http://(.*)/ads/minizoff(.*)	http://\1/ads/minizoff\2
+#
+#	NO_REDIRECT rule
+# 	regex ^http://(.*)/ads/minizoff(.*)
+#------------------------------------------------------------------------------
+#
+# I recommend to use the "accelerators" '^' and '$' in REs whereever it is
+# possible, since this speeds up the pattern matching a lot!
+#------------------------------------------------------------------------------
+
+# rule 8 - 9
+regex	^http://199.78.52.10/~web_ani/.*\.gif	http://141.44.30.2/images/dot.gif	^http://199.78.52.10/~web_ani/
+abort	.gif
+
+# rule 10 - 17
+regexi	^http://ad.doubleclick.net/ad/.*	http://141.44.30.2/images/dot.gif	^http://ad.doubleclick.net/ad/
+regex	^http://ad.preferences.com/image.*	http://141.44.30.2/images/dot.gif	^http://ad.preferences.com/image
+regex	^http://ads[0-9][0-9].focalink.com/SmartBanner/nph-graphic.*	http://141.44.30.2/images/dot.gif
+regex	^http://adserver.developer.com/cgi-bin/accipiter/adserver.exe.*	http://141.44.30.2/images/dot.gif	http://adserver.developer.com/cgi-bin/accipiter/adserver.exe
+regex	^http://tracker.clicktrade.com/Tracker.*	http://141.44.30.2/images/dot.gif	http://tracker.clicktrade.com/Tracker
+regex	^http://adforce.imgis.com/?adserv.*	http://141.44.30.2/images/dot.gif	^http://adforce.imgis.com/?adserv
+regex	^http://195.90.252.40/banner.*	http://141.44.30.2/images/dot.gif	^http://195.90.252.40/banner
+regex	^http://www.artuframe.com/partners/affiliates/banners.*	http://141.44.30.2/images/dot.gif	^http://www.artuframe.com/partners/affiliates/banners
+
+
+# NOTE: actually '.' in RE is any character, so if you want to be sure,
+#       escape the special meaning with a prefixed '\' ;-)
+
+# We use the IP address in the rewritten URL to get the local image cached ;-)
+# BTW: You might have a look at our latest redirect.rules file for our
+#      parent proxy cache via
+#      http://www.cs.uni-magdeburg.de/proxy/filter.shtml

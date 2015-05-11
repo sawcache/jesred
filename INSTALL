@@ -1,0 +1,65 @@
+JESRED INSTALLATION:
+
+COMMON: For best performance on Solaris 2.x I recommend to compile everything
+        with __Sun's C compiler >= 4.0__  or  GNU c compiler >= 2.8.0 and a
+        optimization level >= 4 . At least on Solaris >= 2.5 you should use
+        the regex functions from the OS' std libc instead of GNU regex-0.12!!!
+
+0) if you do NOT want to use the regex functions of your OS standard libraries,
+   get GNU regex-0.12 or higher and compile it as described in its INSTALL
+   file (we only need regex.h and regex.o, so u do not need to install it!)
+   WARNING: Per default it compiles with debug option and no optimization.
+   So edit its Makefile, to get better code (i.e. more performance).
+
+   GNU regex is available via:
+   ftp://ftp.tu-chemnitz.de/pub/gnu/regex-0.12.tar.gz    (GNU mirror) or
+   ftp://prep.ai.mit.edu/pub/gnu/regex-0.12.tar.gz
+
+
+1) edit the Makefile and insert the appropriate values for:
+   - your compiler ( CC )
+   - compiler options like optimization level etc. ( AC_FLAGS )
+   - extra libraries like -lnsl or -lxnet etc. ( XTRA_LIBS )
+   - enable debug option, if you want enable/disable debugging during
+     jesred runs ( DEBUG )
+   - if you use GNU regex, uncomment XOBJS and DEFS and sustitute
+     regex-0.12 with the path, where your GNU regex.[ho] resides
+   - if you want to use redirect rules with ACCEL option, add
+     -DUSE_ACCEL to DEFS.
+
+2) edit path.h and set the DEFAULT_PATH to the directory, where jesred
+   will find its configuration file jesred.conf
+
+3) make
+
+4) copy jesred to an appropriate directory
+
+5) create the jesred configuration file DEFAULT_PATH/jesred.conf
+   (an example with explanations is located in ./etc) and the rewrite.allow
+   and rewrite.rule file or whichever file names you set in jesred.conf
+   If you forget it and start/reconfigure squid, jesred prints out a
+   warning messages to stderr an continues to work in echo_mode.
+   You can still copy the configuration file to the appropriate location
+   and send a HUP signal to ALL redirector processes to read in the new one ;-)
+
+   NOTE: in all configuration files, all leading and trailing white spaces
+         of a line are ignored. 2nd, a line which starts with a '#' is
+         ignored completely!
+
+6) optional: Verify/Test of jesred
+   a) create a redirect file (e.g. from your squid native access.log file with
+      head -100000 access.log | awk -p '{ print $7 " " $3"/-" " " $8 " " $6}' \
+	>/var/tmp/testurls
+      )
+   b) enable the log files in jesred.conf
+   c) jesred < /var/tmp/testurls >/dev/null
+   d) check out the log files (see jesred.conf)
+
+7) modify in squid.conf the redirect_program tag (e.g.
+   redirect_program /local/squid/bin/jesred )
+
+8) check out, if redirect_children in squid_conf meets your needs
+
+9) reconfigure squid (e.g. squid -k reconfigure)
+
+10) check out the log files, if you have enabled them in jesred.conf

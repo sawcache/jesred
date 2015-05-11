@@ -1,0 +1,30 @@
+# Example: IP access pattern file
+
+# the following CDIR notation is allowed ONLY:
+# a.b.c.d/m	with a, b, c, d ... {0..255} and	m ... {0..32}
+# and is referred as IP access pattern.
+#
+# you can prefix any IP access pattern with a '!`, which explicitly says,
+# "Do not rewrite the passed URL from this client"
+ 
+#############################################################################
+# Since jesred uses a linear list of ip access patterns, the order of the   #
+# ip access patterns in this file is important!!!                           #
+#############################################################################
+
+# jesred uses a linear IP Access pattern list. As long as no match is found,
+# it compares the clients IP address with the next pattern, listed below.
+# If the end of the list is reached and no match was found, jesred echo's
+# back a "\n", which indicates no URL replacement to squid.
+# If the client IP address matches an entry below, rewrite rules
+# are applied immediately (i.e. no further checks for other IP access
+# pattern matches will be done).
+#
+
+# These are my children caches which have their own redirectors running
+!141.44.251.15/32
+!149.203.102.1/32
+# rewrite all URLs from
+141.44.0.0/16
+149.203.0.0/16
+193.175.28.0/24

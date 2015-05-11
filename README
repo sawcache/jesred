@@ -1,0 +1,60 @@
+Jesred 1.0, Copyright (C) 1998  Jens Elkner  (elkner@ivs.cs.uni-magdeburg.de)
+       http://ivs.cs.uni-magdeburg.de/~elkner/webtools/jesred/
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+http://www.gnu.org/copyleft/gpl.html or ./gpl.html
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+
+------------------ Jesred is a Squid redirector program. -------------------
+
+It is derived from Chris Foote's
+and Wayne Piekarski's squirm 1.0 betaB (see http://www.senet.com.au/squirm/)
+and uses some slightly modified routines (IP ACL stuff) from squid (see
+http://squid.nlanr.net).
+
+For more information about Squid redirectors see
+http://squid.nlanr.net/Squid/FAQ/FAQ-14.html
+
+Main improvements wrt. squirm 1.0 betaB:
+=========================================
+ - uses a configuration file (jesred.conf)
+ - strict usage of subnet/mask notation and squid's ip acl lists to determine,
+   whether to rewrite the passed URL for a specific client/sibling or not
+   (probably a big plus for Class A and B networks)
+ - optionally allows to rewrite URL's for siblings as well
+ - optionally logging of common and error messages to a file
+ - optionally logging of URL rewrites to a separate file
+ - avoids persistent opening/closing of the log file[s]
+ - supports reconfiguration via 'kill -HUP pid' and re-reads the complete
+   configuration file, and that's why it is able to change the following
+   on the fly, i.e. no need to restart squid:
+    - change the used log file[s] (useful for log file rotation - just
+      rewrite jesred.conf and send a HUP signal to jesred processes)
+    - enable/disable logging
+    - enable/disable debug mode if compiled with DEBUG option
+    - enable/disable URL rewriting of ICP_QUERY (sibling) requests
+            ******************************************
+ - finally: * ABOUT TWICE AS FAST as squirm 1.0betaB *
+            ******************************************
+   (even with ICP_QUERY URL rewriting it was still twice as fast as squirm -
+    remember: squirm allows to rewrite GET requests only! I tested with
+    the extract of the first 100.000 entries from our parent cache's
+    access.log file and our class B subnet - i.e. 141.44.0.0/16 )
+
+Main drawback wrt. squirm 1.0 betaB:
+=====================================
+ - it uses about 256 KB more than squirm on solaris 2.6
+   (but anyway, it is still less than perl 5.004 ;-))
+

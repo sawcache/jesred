@@ -1,0 +1,27 @@
+Changes to jesred 1.2pl1 (Jan 23, 1999) from jesred 1.2:
+	- respects to the FreeBSD community (added required includes to
+	  ip_list.c)
+	
+Changes to jesred 1.2 (Aug 15, 1998) from jesred 1.1:
+	- IF a URL is rewritten, now the number of the appropriate rule
+	  is append to the rewrite.log file. So it is easier
+	  to analyze the log file and to check out the frequency
+	  of pattern matches for each rewrite rule
+	  (to keep the log file small, there is as usual no log entry
+	   for any matched ABORT or NO_REDIRECT rule)
+	- added rule number comments to redirect.rules example
+
+Changes to jesred 1.1 (Jul 25, 1998) from jesred 1.0:
+	- Added shortcut for URLs, which should not be rewritten
+	  (just omit RURL and ACCEL in the redirect rule)
+	  such rules are referred as NO_REDIRECT rules
+	- fixed memory leak (on SIGHUP jesred 1.0 did not free allocated
+	  memory for compiled regex patterns)
+	- fixed ACCEL bug for NORMAL Accelerators (i.e. ACCEL without
+	  a ^ and $) to compare the ACCEL with the [lower cased] URL instead of
+	  the [lower cased] URL with itself ;-)
+	- support of ACCEL is now optional (i.e. one has to compile with
+	  option -DUSE_ACCEL, to use it - otherwise ACCEL strings are ignored)
+	- enabled GetOptions function for printing version information and
+          help via optional switches -v/-h
+	- Added some comments in the etc/redirect.rules example
