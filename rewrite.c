@@ -103,7 +103,7 @@ parse_buff(char *buff, char **ch_id, char **url, char **src_addr, char **ident, 
     }
     }
     if(c != 5) {
-        for(i = 0; i < c; i++) {
+        for(i = 1; i < c; i++) {
             if ( end[i] )
                 *end[i] = ' ';
         }
@@ -122,7 +122,7 @@ parse_buff(char *buff, char **ch_id, char **url, char **src_addr, char **ident, 
         c++;
     if ( c ) {
 #ifdef DEBUG
-        for(c = 0; c < 4; c++) {
+        for(c = 1; c < 4; c++) {
             if ( end[c] )
                 *end[c] = ' ';
         }
