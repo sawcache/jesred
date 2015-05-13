@@ -22,9 +22,12 @@
 #
 
 # These are my children caches which have their own redirectors running
-!141.44.251.15/32
-!149.203.102.1/32
+#!141.44.251.15/32
+#!149.203.102.1/32
 # rewrite all URLs from
-141.44.0.0/16
-149.203.0.0/16
-193.175.28.0/24
+#141.44.0.0/16
+#149.203.0.0/16
+#193.175.28.0/24
+
+# Default all networks
+0.0.0.0/0
