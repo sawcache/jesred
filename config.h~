@@ -27,7 +27,7 @@
 
 //void read_allow(char **, ip_acl **);
 void read_rules(char **,pattern_item **);
-void read_config(char **, char **, char **);
+void read_config(char **, char **, char **, char **);
 
 #endif
 

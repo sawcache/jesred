@@ -33,7 +33,6 @@
 #ifndef REWRITE_H
 #define REWRITE_H
 
-extern int parse_buff(char *, char**, char **, char **, char **, char **,
-		      ip_acl *, pattern_item *);
+extern int parse_buff(char *, char**, char **);
 
 #endif

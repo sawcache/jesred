@@ -1,7 +1,12 @@
 /*
- * $Id: config.h,v 1.1 1998/05/17 15:24:03 elkner Exp $
+ * Modified: Ulises Nicolini by Vianet 2015/05/11
+ * email: developers@sawcache.com
+ * web:http://sawcache.com
+ * Version: 3.0
+ * 
+ * $Id: rewrite.h,v 1.2 1998/07/25 03:16:19 elkner Exp $
  *
- * Author:  Jens Elkner  elkner@ivs.cs.uni-magdeburg.de
+ * Author:  Squirm derived      http://www.senet.com.au/squirm/
  * Project: Jesred       http://ivs.cs.uni-magdeburg.de/~elkner/webtools/jesred/
  *
  * This program is free software; you can redistribute it and/or
@@ -19,15 +24,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
+ * Thanks to Chris Foote, chris@senet.com.au - except parse_buff
+ * not much to change here (i.e. don't like to go deeper into the pattern stuff)
+ * ;-)
+ *
  */
 
+#ifndef REWRITE_H
+#define REWRITE_H
 
-#ifndef CONF_H
-#define CONF_H
-
-//void read_allow(char **, ip_acl **);
-void read_rules(char **,pattern_item **);
-void read_config(char **, char **, char **);
+extern int parse_buff(char *, char**, char **,  pattern_item *);
 
 #endif
-

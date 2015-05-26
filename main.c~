@@ -78,7 +78,7 @@ int main(int argc, char **argv)
     char *url,  *ident, *method, *ch_id;
     int finished = 0;
     int buff_status = 0;
-   
+    //ip_acl *ip_list = NULL;
     pattern_item *pattern_list = NULL;
     
     /* go into interactive mode if we're run as root */
@@ -173,7 +173,7 @@ int main(int argc, char **argv)
 	}
 
     log(DEBG,"PID %d exit now\n",(int)getpid()) ;
-    
+    //ip_acl_destroy(&ip_list);
     plist_destroy(&pattern_list);
     closeLogs();
     safe_free(f_rewrite);
