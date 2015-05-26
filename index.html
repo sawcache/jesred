@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Jesred 3 by sawcache</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Jesred 3</h1>
+        <p>Jesred 3 is a very fast and highly configurable rewrite helper for the Squid Internet Object Cache. It was derived from Jens Elkner&#39;s jesred 1.2pl1 and it&#39;s 100% compatible with Squid &gt;3.4</p>
+
+        <p class="view"><a href="https://github.com/sawcache/jesred">View the Project on GitHub <small>sawcache/jesred</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/sawcache/jesred/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/sawcache/jesred/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/sawcache/jesred">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>Jesred 3.0, Modifications by Ulises Nicolini (<a href="mailto:developers@sawcache.com">developers@sawcache.com</a>)
+    <a href="http://github.com/sawcache/jesred/">http://github.com/sawcache/jesred/</a></p>
+
+<p>This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation</p>
+
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+
+<p><a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a> or ./gpl.html</p>
+
+<p>You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</p>
+
+<p>------------------ New features (since version 1.0) -----------------------</p>
+
+<ul>
+<li>Compatible with Squid 3.x new store-id format using kv-pair</li>
+<li>Syntax modifications to make it compatible with newer gcc/cc versions</li>
+</ul>
+
+<p>------------------ Original README file -----------------------------------</p>
+
+<p>Jesred 1.0, Copyright (C) 1998  Jens Elkner  (<a href="mailto:elkner@ivs.cs.uni-magdeburg.de">elkner@ivs.cs.uni-magdeburg.de</a>)
+       <a href="http://ivs.cs.uni-magdeburg.de/%7Eelkner/webtools/jesred/">http://ivs.cs.uni-magdeburg.de/~elkner/webtools/jesred/</a></p>
+
+<p>This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.</p>
+
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
+
+<p><a href="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</a> or ./gpl.html</p>
+
+<p>You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.</p>
+
+<p>------------------ Jesred is a Squid redirector program. -------------------</p>
+
+<p>It is derived from Chris Foote's
+and Wayne Piekarski's squirm 1.0 betaB (see <a href="http://www.senet.com.au/squirm/">http://www.senet.com.au/squirm/</a>)
+and uses some slightly modified routines (IP ACL stuff) from squid (see
+<a href="http://squid.nlanr.net">http://squid.nlanr.net</a>).</p>
+
+<p>For more information about Squid redirectors see
+<a href="http://squid.nlanr.net/Squid/FAQ/FAQ-14.html">http://squid.nlanr.net/Squid/FAQ/FAQ-14.html</a></p>
+
+<h1>
+<a id="main-improvements-wrt-squirm-10-betab" class="anchor" href="#main-improvements-wrt-squirm-10-betab" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main improvements wrt. squirm 1.0 betaB:</h1>
+
+<ul>
+<li>uses a configuration file (jesred.conf)</li>
+<li>strict usage of subnet/mask notation and squid's ip acl lists to determine,
+whether to rewrite the passed URL for a specific client/sibling or not
+(probably a big plus for Class A and B networks)</li>
+<li>optionally allows to rewrite URL's for siblings as well</li>
+<li>optionally logging of common and error messages to a file</li>
+<li>optionally logging of URL rewrites to a separate file</li>
+<li>avoids persistent opening/closing of the log file[s]</li>
+<li>supports reconfiguration via 'kill -HUP pid' and re-reads the complete
+configuration file, and that's why it is able to change the following
+on the fly, i.e. no need to restart squid:
+
+<ul>
+<li>change the used log file<a href="useful%20for%20log%20file%20rotation%20-%20just%0Arewrite%20jesred.conf%20and%20send%20a%20HUP%20signal%20to%20jesred%20processes">s</a>
+</li>
+<li>enable/disable logging</li>
+<li>enable/disable debug mode if compiled with DEBUG option</li>
+<li>enable/disable URL rewriting of ICP_QUERY (sibling) requests
+    ******************************************</li>
+</ul>
+</li>
+<li>finally: * ABOUT TWICE AS FAST as squirm 1.0betaB *
+        ******************************************
+(even with ICP_QUERY URL rewriting it was still twice as fast as squirm -
+remember: squirm allows to rewrite GET requests only! I tested with
+the extract of the first 100.000 entries from our parent cache's
+access.log file and our class B subnet - i.e. 141.44.0.0/16 )</li>
+</ul>
+
+<h1>
+<a id="main-drawback-wrt-squirm-10-betab" class="anchor" href="#main-drawback-wrt-squirm-10-betab" aria-hidden="true"><span class="octicon octicon-link"></span></a>Main drawback wrt. squirm 1.0 betaB:</h1>
+
+<ul>
+<li>it uses about 256 KB more than squirm on solaris 2.6
+(but anyway, it is still less than perl 5.004 ;-))</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/sawcache">sawcache</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
