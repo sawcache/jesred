@@ -4,7 +4,6 @@ ACLOCAL_AMFLAGS = -I m4
 # HINT: If you want to run the program on an UltraSPARC driven machine,
 #       I recommend to use Sun C-Compiler >= 4.0 or gcc >= 2.8.0 with
 #       optimization level >= 4 for best performance.
-CC=cc
 
 INCLUDE         = -I.
 LDFLAGS         =
@@ -56,19 +55,18 @@ DEBUG	= -DDEBUG
 # That's it - no further changes should be necessary ;-)
 # ===========================================================================
 
-PROGS	= jesred
 CFLAGS  = $(AC_CFLAGS) $(INCLUDE)
 LIBS    = -L. $(XTRA_LIBS)
 
 
 bin_PROGRAMS = jesred
-jesred_SOURCES = ip_list.c \
+jesred_SOURCES = config.c ip_list.c \
 	log.c \
 	main.c \
 	pattern_list.c \
 	rewrite.c \
 	util.c \
-	ip_list.h  log.h  main.h  path.h  pattern_list.h  rewrite.h  util.h  version.h
+	config.h ip_list.h  log.h  main.h  path.h  pattern_list.h  rewrite.h  util.h  version.h
 
 all:	$(PROGS)
 
